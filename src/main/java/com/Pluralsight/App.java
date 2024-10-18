@@ -2,17 +2,21 @@ package com.Pluralsight;
 
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) throws IOException {
-//        Home Screen
-//        o The home screen should give the user the following options. The
-//        application should continue to run until the user chooses to exit.
-        Scanner keyboard = new Scanner(System.in);
+    public static void main(String[] args) {
 
+        Scanner keyboard = new Scanner(System.in);
+        boolean runs = true;
 
         while (true) {
+            String option;
+            option = keyboard.nextLine();
+            String choice;
+            choice = keyboard.nextLine();
 
             System.out.println("Home Screen\n");
             System.out.println("(D) Add Deposit");
@@ -20,86 +24,72 @@ public class App {
             System.out.println("(L) Display Ledger");
             System.out.println("(X) Exit Home Screen");
             System.out.println("Choose an option:");
-            String option;
-            option = keyboard.nextLine();
-
-
-
-
             switch (option) {
                 case "D":
-                    try {
-                        FileWriter fileWriter = new FileWriter("src/main/resources/Transactions.csv", true);
-                        BufferedWriter bufWriter = new BufferedWriter(fileWriter);
-
-                        System.out.print("Make A Deposit: ");
-                        String deposit = keyboard.nextLine();
-
-                        bufWriter.write(deposit);
-                        bufWriter.newLine();
-                        bufWriter.close();
-                    } catch (IOException e) {
-                        System.out.println("ERROR: An unexpected error occurred");
-                        e.getStackTrace();
-                    }
+                    addDeposit(keyboard);
                     break;
-
-
                 case "P":
-                    try {
-                        FileWriter fileWriter = new FileWriter("src/main/resources/Transactions.csv", true);
-
-                        BufferedWriter bufWriter = new BufferedWriter(fileWriter);
-
-                        System.out.println("Make A Payment(Debit): ");
-                        String payment = keyboard.nextLine();
-
-                        bufWriter.write(payment);
-                        bufWriter.newLine();
-                        bufWriter.close();
-                    } catch (IOException e) {
-                        System.out.println("ERROR: An unexpected error occurred");
-                        e.getStackTrace();
-                    }
+                    makePayment(keyboard);
                     break;
-
                 case "L":
-
-                        case "A":  //Display All entries
-                            try {
-                                FileReader fileReader = new FileReader("src/main/resources/Transactions.csv");
-                                BufferedReader bufReader = new BufferedReader(fileReader);
-
-                                String fileEntries;
-
-                                while ((fileEntries = bufReader.readLine()) != null) {
-                                    System.out.println(fileEntries);
-                                }
-                                bufReader.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            break;
-
-                        case "B":
-                            System.out.println("Deposits");
-
-
-                        case "C":
-                            System.out.println("Payments");
-
-
-                        case "E":
-                            System.out.println("Reports");
-
-
-//                        EXIT THE APPLICATION
-                        case "X":
-                            System.out.println("EXIT the application");
-
-
+                    displayLedger();
+                    break;
+                case "X":
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("ERROR occurred try again..");
             }
         }
     }
+
+//
+    private static void addDeposit(Scanner keyboard) {
+        System.out.println("Enter description: ");
+        String description = keyboard.nextLine();
+        System.out.println("Enter vendor: ");
+        String vendor = keyboard.nextLine();
+        System.out.println("Enter amount: ");
+        double amount = Double.parseDouble(keyboard.nextLine());
+    }
+
+    private static void makePayment(Scanner keyboard) {
+        System.out.println("Enter description: ");
+        String description = keyboard.nextLine();
+        System.out.println("Enter vendor: ");
+        String vendor = keyboard.nextLine();
+        System.out.println("Enter amount: ");
+        double amount = Double.parseDouble(keyboard.nextLine());
+    }
+
+    private static void displayLedger() {
+
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/resources/Transactions.csv", true);
+            BufferedWriter bufWriter = new BufferedWriter(fileWriter);
+
+            bufWriter.newLine();
+
+
+            fileWriter.close();
+
+        } catch (IOException e) {
+            System.out.println("ERROR");
+            e.printStackTrace();
+
+
+        }
+
+    private static void readTransactions()
+//        LocalDateTime today = LocalDateTime.now();
+//        DateTimeFormatter format =DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//
+//        String formattedDate = today.format(format);
+//        bufWriter.write(formattedDate + " " + action);
+
+    private static void saveTransactions()
+    }
 }
+
+
 
